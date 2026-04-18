@@ -6,10 +6,13 @@ from scripts.read_data import *
 
 Gids = json.load(open("data/gids.json"))
 
-def GetData(Tittle):
-    print(Tittle)
-    df = pd.read_csv(URL.replace('[GID]',Gids[Tittle]))
-    return df.to_numpy()
+
+def GetData(Title):
+    try:
+        df = pd.read_csv(URL.replace('[GID]',Gids[Title][0]))
+        return df.to_numpy()
+    except:
+        return "error"
 
 if __name__ == "__main__":
     while True:
@@ -20,12 +23,22 @@ if __name__ == "__main__":
 
         if "--" in res:
             flags = True
-
+        
         match UserInput[0]:
             case "help":
                 pass
-            case "check":
-                pass
-            case "":
-                pass
+            case "list":
+                if flags:
+                    pass
+                
+                print("UMA | CODE")
+                for uma in Gids:
+                    print(f"{Gids[uma][1]} : {uma}")
+            case "check":                
+                if flags:
+                    pass
+
+                Data = GetData(UserInput[1])
+
+                print(f"There are {len(Data)} playthrough resgister in the {Gids[UserInput[1]][1]} database.")
 
