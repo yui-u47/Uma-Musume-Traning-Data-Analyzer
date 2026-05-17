@@ -41,4 +41,3 @@ if __name__ == "__main__":
                 Data = GetData(UserInput[1])
 
                 print(f"There are {len(Data)} playthrough resgister in the {Gids[UserInput[1]][1]} database.")
-
