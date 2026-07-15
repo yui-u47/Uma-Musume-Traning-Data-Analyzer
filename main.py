@@ -1,43 +1,34 @@
 import json
+import os
 import pandas as pd
 
-from scripts.config import *
-from scripts.read_data import *
+from scripts.commands import *
 
-Gids = json.load(open("data/gids.json"))
-
-
-def GetData(Title):
-    try:
-        df = pd.read_csv(URL.replace('[GID]',Gids[Title][0]))
-        return df.to_numpy()
-    except:
-        return "error"
+Clear = lambda: os.system("clear")
 
 if __name__ == "__main__":
     while True:
-        flags = False
+        flags = []
 
         res = input('> ')
         UserInput = res.split()
+        Clear()
 
-        if "--" in res:
-            flags = True
+        for n in UserInput:
+            if "--" in n:
+                flags.append(n)
+
         
         match UserInput[0]:
             case "help":
-                pass
+                HelpCommand()
+                
             case "list":
-                if flags:
+                if flags > 0:
                     pass
                 
                 print("UMA | CODE")
-                for uma in Gids:
-                    print(f"{Gids[uma][1]} : {uma}")
+                for uma in GIDS:
+                    print(f"{GIDS[uma][1]} : {uma}")
             case "check":                
-                if flags:
-                    pass
-
-                Data = GetData(UserInput[1])
-
-                print(f"There are {len(Data)} playthrough resgister in the {Gids[UserInput[1]][1]} database.")
+                CheckCommand(UserInput, flags)
