@@ -17,7 +17,6 @@ if __name__ == "__main__":
         for n in UserInput:
             if "--" in n:
                 flags.append(n)
-
         
         match UserInput[0]:
             case "help":
